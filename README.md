@@ -34,3 +34,14 @@ Installation:
 Tested with:
 - Ansible 2.5.0
 - Python 2.7.14
+
+Alternatives built-in to Ansible:
+------------------------
+
+     your_dictionary | map(attribute='name') | list
+    
+In this case, where a key doesn't exist in all records, the output will look like this:
+
+    "urls": "[u'http://example.com', Undefined, Undefined]", 
+
+[Jinja Documentation](http://jinja.pocoo.org/docs/dev/templates/#map)
