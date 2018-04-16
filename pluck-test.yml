@@ -1,0 +1,39 @@
+---
+- name: test the pluck filter plugin
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    apps:
+      - { name: "web", cluster: "gamma", url: "http://example.com" }
+      - { name: "worker", cluster: "alpha", count: 7 }
+      - { name: "relay", cluster: "omega", relay_host: "relay.example.com" }
+
+  tasks:
+    - name: pluck 'name' and save to a variable
+      set_fact:
+        app_names: "{{ vars.apps | pluck('name') }}"
+
+    - name: is app_names what we expect?
+      debug:
+        var: app_names
+      failed_when: app_names != ['web','worker','relay']
+
+    - name: pluck 'cluster' and save to a variable
+      set_fact:
+        app_clusters: "{{ vars.apps | pluck('cluster') }}"
+
+    - name: is app_clusters what we expect?
+      debug:
+        var: app_clusters
+      failed_when: app_clusters != ['gamma','alpha','omega']
+
+    - name: pluck 'url' and save to a variable
+      set_fact:
+        app_urls: "{{ vars.apps | pluck('url') }}"
+
+    - name: is app_urls what we expect?
+      debug:
+        var: app_urls
+      failed_when: app_urls != ['http://example.com']
+
