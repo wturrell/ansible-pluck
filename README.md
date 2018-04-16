@@ -12,7 +12,8 @@ You can use this filter to easily extract a single key from a dictionary.
 Usage
 -----
 
-    app_urls: "{{ your_dictionary | pluck('name') }}"
+    debug:
+      var: "{{ your_dictionary | pluck('name') }}"
 
 I've modified the filter so that it can cope with keys that are missing from some entries.  For example, in the above 
 dictionary, if you pluck 'url' you will get a list with a single item.
@@ -26,9 +27,9 @@ Installation:
 -------------
 - Copy `pluck.py` to your ansible/filter_plugins directory
   (if directory does not exist, create it)
-- You can run this to check it works:
+- Run the following playbook to test it works: 
 
-    ansible-playbook pluck-test.yml
+`ansible-playbook pluck-test.yml`
 
 Tested with:
 - Ansible 2.5.0
